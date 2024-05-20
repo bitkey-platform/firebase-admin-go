@@ -490,5 +490,11 @@ func findMaxAge(resp *http.Response) (*time.Duration, error) {
 			return &duration, nil
 		}
 	}
-	return nil, errors.New("Could not find expiry time from HTTP headers")
+
+	// https://github.com/firebase/firebase-admin-go/issues/621
+	// return nil, errors.New("Could not find expiry time from HTTP headers")
+
+	duration := time.Duration(60 * 60 * time.Second)
+
+	return &duration, nil
 }
